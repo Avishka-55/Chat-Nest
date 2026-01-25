@@ -54,7 +54,6 @@ app.use("/api/messages", messageRouter)
 
 await connectDB()
 
-server.listen(PORT,()=>{
-    console.log(`Server started at http://localhost:${PORT}`);
-    
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server started on port ${PORT}`)
 })
