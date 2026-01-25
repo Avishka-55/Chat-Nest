@@ -16,7 +16,7 @@ services:
     env_file:
       - ./frontend/.env
     ports:
-      - "5174:5174"
+      - "5174:80"
     depends_on:
       - backend
     restart: unless-stopped
