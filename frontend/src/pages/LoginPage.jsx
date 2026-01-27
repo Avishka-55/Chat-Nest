@@ -87,7 +87,7 @@ login(currState === "Sign Up" ? 'signup' : 'login', {fullName, email, password, 
 
         <div className='flex items-center gap-2 text-sm text-gray-400'>
           <input type="checkbox" className='accent-emerald-600' />
-          <p>Agree to the terms of use & privacy policy.</p>
+          <p>Agree to the terms of use & privacy policyy.</p>
         </div>
         <div className='flex flex-col gap-2'>
           {currState === 'Sign Up' ? (
