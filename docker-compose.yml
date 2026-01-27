@@ -1,0 +1,43 @@
+services:
+  backend:
+    build: ./backend
+    container_name: chat-backend
+    env_file:
+      - ./backend/.env
+    expose:
+      - "5000"
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+      args:
+        VITE_BACKEND_URL: https://chat.wmavishka.me
+    container_name: chat-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - certbot-www:/var/www/certbot
+      - certbot-etc:/etc/letsencrypt
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certbot-www:/var/www/certbot
+      - certbot-etc:/etc/letsencrypt
+    command: >
+      certonly --webroot
+      --webroot-path=/var/www/certbot
+      --email avishkapiyumantha@gmail.com
+      --agree-tos
+      --no-eff-email
+      -d chat.wmavishka.me
+
+volumes:
+  certbot-www:
+  certbot-etc:
