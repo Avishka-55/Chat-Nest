@@ -1,10 +1,19 @@
-# 🟢 ChatNest
+#  ChatNest
 
 Modern Real-Time SaaS Chat Application
+ChatNest is a full-stack real-time chat application built with a modern tech stack, featuring real-time messaging, authentication, and a production-grade Docker + Nginx deployment with CI/CD.
 
-## 🚀 Live Links- https://chatnest-12.netlify.app
+##  Live Links
 
-## ✨ Features
+Primary (Custom Domain)
+👉 https://chat.wmavishka.me
+
+⚠️ Note: This server may occasionally be offline because it runs on an EC2 instance that is manually shut down to reduce cloud costs.
+
+Backup (Always Available)
+👉 https://chatnest-12.netlify.app
+
+##  Features
 
 - Real-time messaging (Socket.IO)
 - Live online user status
@@ -12,6 +21,7 @@ Modern Real-Time SaaS Chat Application
 - Profile avatar & bio customization
 - Cloudinary image hosting
 - Fully responsive modern green UI
+- Production-ready Dockerized deployment
 
 
 ## 🛠 Tech Stack
@@ -37,7 +47,15 @@ Modern Real-Time SaaS Chat Application
 - Render (Backend)
 - Netlify (Frontend)
 
-## 📦 Local Setup
+### Infrastructure & DevOps
+
+- Docker & Docker Compose
+- Nginx (Reverse Proxy)
+- Let's Encrypt (SSL)
+- AWS EC2 (Production Server)
+- GitHub Actions (CI/CD)
+
+##  Local Setup
 
 ### Clone repo
 
@@ -96,6 +114,11 @@ npm run dev
 | Frontend | Netlify   |
 | Backend  | Render    |
 | Media    | Cloudinary |
+| SSL      | Let's Encrypt|
+| CI/CD    | Github Actions |
+
+The EC2 deployment uses Docker Compose with Nginx as a reverse proxy and automatic deployments triggered on pushes to the production branch.
+
 
 ## 👑 Author
 
