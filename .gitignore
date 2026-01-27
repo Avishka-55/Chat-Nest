@@ -2,3 +2,7 @@
 node_modules
 .env
 
+# SSL / certs
+**/certbot/
+**/letsencrypt/
+*.pem
