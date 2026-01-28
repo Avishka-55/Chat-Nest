@@ -111,8 +111,8 @@ npm run dev
 
 | Service  | Platform   |
 |----------|-----------|
-| Frontend | Netlify   |
-| Backend  | Render    |
+| Frontend | Netlify & EC2 Instance  |
+| Backend  | Render & EC2 Instance  |
 | Media    | Cloudinary |
 | SSL      | Let's Encrypt|
 | CI/CD    | Github Actions |
