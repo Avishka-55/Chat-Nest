@@ -2,75 +2,78 @@
 
 Modern Real-Time SaaS Chat Application
 
-ChatNest is a full-stack real-time chat application built with a modern tech stack, featuring real-time messaging, authentication, and production-grade deployment with CI/CD.
-
-## 🌿 Branches
-
-| Branch | Description |
-|---|---|
-| `main` | Docker + Nginx deployment on AWS EC2 via Docker Compose |
-| `k8s` | Kubernetes deployment on AWS EC2 using k3s |
-
-> Each branch has its own CI/CD pipeline via GitHub Actions. See deployment details below.
+ChatNest is a full-stack real-time chat application built with a modern tech stack, featuring real-time messaging, authentication, containerized deployment, and automated CI/CD using Kubernetes.
 
 ## 🔗 Live Links
 
-**Primary (Custom Domain)**
+### Primary (Custom Domain)
+
 👉 http://chat.wmavishka.me
 
-⚠️ Note: This server may occasionally be offline because it runs on an EC2 instance that is manually shut down to reduce cloud costs.
+⚠️ Note: The production server may occasionally be offline because the EC2 instance is manually stopped to reduce cloud costs.
 
-**Backup (Always Available)**
+### Backup
+
 👉 https://chatnest-12.netlify.app
 
 ## ✨ Features
 
-- Real-time messaging (Socket.IO)
-- Live online user status
-- JWT authentication
-- Profile avatar & bio customization
-- Cloudinary image hosting
-- Fully responsive modern green UI
-- Production-ready Dockerized deployment
+* Real-time messaging (Socket.IO)
+* Live online user status
+* JWT authentication
+* Profile avatar & bio customization
+* Cloudinary image hosting
+* Fully responsive modern UI
+* Dockerized microservice deployment
+* Kubernetes orchestration
+* Automated CI/CD pipeline
 
 ## 🛠 Tech Stack
 
 ### Frontend
-- React + Vite
-- Tailwind CSS
-- Socket.IO Client
-- Axios
+
+* React + Vite
+* Tailwind CSS
+* Socket.IO Client
+* Axios
 
 ### Backend
-- Node.js + Express
-- MongoDB Atlas
-- Socket.IO
-- JWT Authentication
-- Cloudinary
+
+* Node.js + Express
+* MongoDB Atlas
+* Socket.IO
+* JWT Authentication
+* Cloudinary
 
 ### Infrastructure & DevOps
-- Docker & Docker Compose
-- Kubernetes (k3s)
-- Nginx / Traefik (Reverse Proxy)
-- Let's Encrypt (SSL)
-- AWS EC2 (Production Server)
-- GitHub Actions (CI/CD)
+
+* Docker
+* DockerHub
+* Kubernetes (k3s)
+* Traefik Ingress Controller
+* Horizontal Pod Autoscaler (HPA)
+* Let's Encrypt SSL
+* AWS EC2
+* GitHub Actions (CI/CD)
 
 ## 💻 Local Setup
 
-### Clone repo
+### Clone Repository
+
 ```bash
 git clone https://github.com/Avishka-55/Chat-Nest.git
 cd Chat-Nest
 ```
 
-### Backend setup
+### Backend Setup
+
 ```bash
 cd backend
 npm install
 ```
 
 Create `.env`:
+
 ```env
 PORT=5000
 MONGODB_URL=your_mongodb_uri
@@ -81,61 +84,73 @@ CLOUDINARY_API_SECRET=your_cloudinary_secret
 ```
 
 Run backend:
+
 ```bash
 npm run server
 ```
 
-### Frontend setup
+### Frontend Setup
+
 ```bash
 cd frontend
 npm install
 ```
 
 Create `.env`:
+
 ```env
 VITE_BACKEND_URL=your_backend_url
 ```
 
 Run frontend:
+
 ```bash
 npm run dev
 ```
 
-## 🌍 Deployment
+## ☸️ Production Deployment
 
-### 🐳 main branch — Docker Compose
-Simple single-server deployment using Docker Compose + Nginx reverse proxy on AWS EC2.
+ChatNest is deployed on AWS EC2 using a lightweight Kubernetes (k3s) cluster.
 
-| Service | Platform |
-|---|---|
-| Frontend | Netlify & EC2 |
-| Backend | Render & EC2 |
-| Media | Cloudinary |
-| SSL | Let's Encrypt |
-| CI/CD | GitHub Actions → Docker Compose deploy |
+### Architecture
 
-Push to `main` → GitHub Actions builds images → SSHs into EC2 → `docker compose up`
+* Frontend and backend containerized using Docker
+* Images stored in DockerHub
+* Kubernetes Deployments manage application pods
+* Traefik Ingress Controller handles routing
+* Let's Encrypt provides SSL certificates
+* Horizontal Pod Autoscaler scales backend pods automatically
+* GitHub Actions performs automated CI/CD deployments
 
-### ☸️ k8s branch — Kubernetes
-Production-grade deployment using k3s on AWS EC2.
+### CI/CD Pipeline
 
-| Feature | Details |
-|---|---|
-| Cluster | k3s (lightweight Kubernetes) |
-| Ingress | Traefik (k3s built-in) |
-| Auto-scaling | HPA — backend scales 2→5 pods at 70% CPU |
-| Sticky sessions | Cookie-based affinity for Socket.IO |
-| Secrets | Kubernetes Secrets (never in image) |
-| CI/CD | GitHub Actions → DockerHub → kubectl rollout restart |
+```text
+Developer Push
+      ↓
+GitHub Actions
+      ↓
+Build Docker Images
+      ↓
+Push to DockerHub
+      ↓
+kubectl Rollout Restart
+      ↓
+Kubernetes Rolling Update
+```
 
-Push to `k8s` → GitHub Actions builds & pushes images to DockerHub → rolling restart on EC2
+### Kubernetes Features
 
-> See `chatnest-k8s/README.md` in the k8s branch for full setup instructions.
+* Rolling updates with zero downtime
+* Automatic pod recovery
+* Horizontal scaling (2–5 backend replicas)
+* Sticky sessions for Socket.IO
+* Secure secret management
+* Automated deployment pipeline
 
 ## 👑 Author
 
-Avishka — CS Graduate | Full Stack Developer
+Avishka — CS Graduate | Full Stack & DevOps Engineer
 
 ## ⭐ Support
 
-Star ⭐ this repo if ChatNest helped you!
+If you found this project useful, consider giving it a star.
