@@ -1,26 +1,53 @@
-name: Deploy Chat-Nest to EC2
+name: Build and Deploy to K8s
 
 on:
   push:
     branches:
-      - main
+      - k8s
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      #  Step 1 — Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v1.0.0
+      #  Step 2 — Login to DockerHub
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
         with:
-          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      #  Step 3 — Build and push backend image
+      - name: Build and push backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: avishka55/chatnest-backend:latest
+
+      #  Step 4 — Build and push frontend image
+      - name: Build and push frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          build-args: |
+            VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}
+          tags: avishka55/chatnest-frontend:latest
+
+      #  Step 5 — SSH into EC2 and rollout restart
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_K8S_HOST }}
           username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ secrets.EC2_K8S_SSH_KEY }}
           script: |
-            cd Chat-Nest
-            git pull origin main
-            docker compose down
-            docker compose up -d --build
+            sudo kubectl rollout restart deployment/backend -n chatnest
+            sudo kubectl rollout restart deployment/frontend -n chatnest
+            sudo kubectl rollout status deployment/backend -n chatnest
+            sudo kubectl rollout status deployment/frontend -n chatnest
