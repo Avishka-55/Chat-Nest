@@ -8,7 +8,7 @@ ChatNest is a full-stack real-time chat application built with a modern tech sta
 
 ### Primary (Custom Domain)
 
-👉 http://chat.wmavishka.me
+👉 https://chat.avishka.site
 
 ⚠️ Note: The production server may occasionally be offline because the EC2 instance is manually stopped to reduce cloud costs.
 
