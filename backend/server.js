@@ -46,8 +46,8 @@ io.on("connection", (socket) => {
 
 app.use(express.json({limit: "4mb"}))
 app.use(cors());
-app.use("/api/status", (req, res)=>{
-    res.send("server is running")
+app.get("/api/status", (req, res) => {
+    res.status(200).json({ status: "ok" })
 })
 app.use("/api/auth", userRouter)
 app.use("/api/messages", messageRouter)

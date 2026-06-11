@@ -1,7 +1,12 @@
 
 node_modules
 .env
-
+**/.env
+.env.*
+chatnest-k8s/secrets/secrets.yaml
+chatnest-k8s/secrets/
+secrets.yaml
+k8s/secrets/secrets.yaml
 # SSL / certs
 **/certbot/
 **/letsencrypt/

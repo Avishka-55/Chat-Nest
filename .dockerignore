@@ -1,0 +1,24 @@
+# === Secrets ===
+.env
+.env.*
+**/.env
+**/.env.*
+chatnest-k8s/secrets/
+secrets.yaml
+
+# === Node ===
+node_modules
+**/node_modules
+
+# === Git ===
+.git
+.gitignore
+
+# === Local dev ===
+docker-compose.yml
+docker-compose.*.yml
+
+# === Misc ===
+*.pem
+**/certbot/
+**/letsencrypt/

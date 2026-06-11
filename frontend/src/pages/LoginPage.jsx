@@ -91,7 +91,7 @@ login(currState === "Sign Up" ? 'signup' : 'login', {fullName, email, password, 
         </div>
         <div className='flex flex-col gap-2'>
           {currState === 'Sign Up' ? (
-            <p className='text-sm text-gray-400'>Already have an account?
+            <p className='text-sm text-gray-400'>Already have an account this is a test?
              <span 
              onClick={()=>{setCurrState('Login'); setIsDataSubmitted(false)}}
              className='font-semibold text-emerald-500 cursor-pointer ml-1'>Login here</span></p>
