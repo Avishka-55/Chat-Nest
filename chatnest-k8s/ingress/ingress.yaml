@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: chatnest-ingress
+  namespace: chatnest
+  annotations:
+    # sticky sessions for Socket.IO — keeps same user on same backend pod
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "chatnest-route"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+    # websocket support
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+    # ssl
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - chat.wmavishka.me
+      secretName: chatnest-tls
+  rules:
+    - host: chat.wmavishka.me
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 5000
+          - path: /socket.io
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 5000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 80
