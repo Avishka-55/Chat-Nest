@@ -24,6 +24,7 @@ ChatNest is a full-stack real-time chat application built with a modern tech sta
 * Profile avatar & bio customization
 * Cloudinary image hosting
 * Fully responsive modern UI
+* Real-time application monitoring (Prometheus & Grafana)
 * Dockerized microservice deployment
 * Kubernetes orchestration
 * Automated CI/CD pipeline
@@ -54,6 +55,7 @@ ChatNest is a full-stack real-time chat application built with a modern tech sta
 * Horizontal Pod Autoscaler (HPA)
 * Let's Encrypt SSL
 * AWS EC2
+* Prometheus & Grafana (Monitoring)
 * GitHub Actions (CI/CD)
 
 ## 💻 Local Setup
@@ -146,6 +148,18 @@ Kubernetes Rolling Update
 * Sticky sessions for Socket.IO
 * Secure secret management
 * Automated deployment pipeline
+
+## 📊 Application Monitoring
+
+ChatNest features a robust monitoring stack configured with **Prometheus** (telemetry data collector) and **Grafana** (visualization dashboards).
+
+### Monitored Metrics
+*   **Active Users**: Live gauge tracking connected Socket.IO sockets.
+*   **Request Latency**: Histogram tracking HTTP endpoint request latencies.
+*   **System Health**: Node.js heap memory usage, event loop lag, and process CPU utilization.
+
+### Accessing Dashboards
+For detailed instructions on running monitoring locally via Docker Compose or in production via AWS k3s (with secure SSH tunneling), please refer to the [k8s-README.md](file:///workspaces/Chat-Nest/chatnest-k8s/k8s-README.md).
 
 ## 👑 Author
 
