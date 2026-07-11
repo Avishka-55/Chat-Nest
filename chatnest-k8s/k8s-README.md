@@ -53,6 +53,10 @@ sudo kubectl apply -f secrets/secrets.yaml
 sudo kubectl apply -f backend/deployment.yaml
 sudo kubectl apply -f frontend/deployment.yaml
 sudo kubectl apply -f ingress/ingress-traefik.yaml
+
+# Apply monitoring stack (Prometheus & Grafana)
+sudo kubectl apply -f monitoring/prometheus.yaml
+sudo kubectl apply -f monitoring/grafana.yaml
 ```
 
 ## Step 4 — Patch external IP (bare EC2, no cloud load balancer)
@@ -71,6 +75,23 @@ sudo kubectl patch svc ingress-nginx-controller \
 sudo kubectl get all -n chatnest
 sudo kubectl get ingress -n chatnest
 sudo kubectl logs -n chatnest deployment/backend
+```
+
+## 📊 Accessing Monitoring Services
+
+By default, Prometheus and Grafana services are not exposed publicly via the ingress for security reasons. You can securely access them using `kubectl port-forward`:
+
+### Access Prometheus
+```bash
+sudo kubectl port-forward svc/prometheus-service 9090:9090 -n chatnest
+# Open http://localhost:9090 in your browser
+```
+
+### Access Grafana
+```bash
+sudo kubectl port-forward svc/grafana-service 3000:3000 -n chatnest
+# Open http://localhost:3000 in your browser
+# Default credentials: admin / admin (The dashboard "ChatNest Overview" is pre-provisioned!)
 ```
 
 ## CI/CD (GitHub Actions)
